@@ -2,16 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone') {
             steps {
-                echo 'Building the Java application...'
-                sh 'javac src/main/java/Sparta.java'
+                sh 'https://github.com/Amrit2055/SpartaJavaCode.git'
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Running the application...'
-                sh 'java -cp src/main/java Sparta'
+                //echo 'Running the application...'
+                sh 'java -cp src/main/java sparta'
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                //echo 'Running the application...'
+                sh 'dependency-check --scan ./ --out report'
             }
         }
     }
